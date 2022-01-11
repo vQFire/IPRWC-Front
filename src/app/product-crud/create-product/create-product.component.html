@@ -1,0 +1,8 @@
+<form *ngIf="form">
+  <input-label label="Name" type="string" [control]="$any(form.get('name'))"></input-label>
+  <input-label label="Price" type="string" [control]="$any(form.get('price'))"></input-label>
+  <input-label label="Short Description" type="textarea" [control]="$any(form.get('shortDescription'))"></input-label>
+  <input-label label="Long Description" type="textarea" [control]="$any(form.get('longDescription'))"></input-label>
+
+  <button class="button button--primary" (click)="submitForm()">Save</button>
+</form>

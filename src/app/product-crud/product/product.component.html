@@ -1,0 +1,16 @@
+<main *ngIf="product" class="text">
+  <h2 class="text--primary">{{ product.name }}</h2>
+
+  <form *ngIf="isModerator && form">
+    <input-label label="Name" type="string" [control]="$any(form.get('name'))"></input-label>
+    <input-label label="Price" type="string" [control]="$any(form.get('price'))"></input-label>
+    <input-label label="Short Description" type="textarea" [control]="$any(form.get('shortDescription'))"></input-label>
+    <input-label label="Long Description" type="textarea" [control]="$any(form.get('longDescription'))"></input-label>
+
+    <button class="button button--primary" (click)="submitForm()">Save</button>
+    <button class="button button--secondary" (click)="deleteProduct()">Delete</button>
+  </form>
+  <div *ngIf="!isModerator">
+    <p>{{product.price}}</p>
+  </div>
+</main>

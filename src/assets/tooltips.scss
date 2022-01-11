@@ -1,0 +1,89 @@
+@use "sass:color";
+
+$blue: #390099;
+$jam: #9E0059;
+$pink: #FF1F69;
+$orange: #FF5400;
+$yellow: #FFBD00;
+$white: #F0F0F0;
+
+$primary-color: $pink;
+$secondary-color: $blue;
+
+// Variables are created wit css so they can be used program wide
+:root {
+  --blue: #{$blue};
+  --jam: #{$jam};
+  --pink: #{$pink};
+  --orange: #{$orange};
+  --yellow: #{$yellow};
+  --white: #F0F0F0;
+
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+}
+
+.text {
+  font-family: 'Mulish', sans-serif;
+  font-weight: normal;
+  color: var(--white);
+
+  & h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+
+  &--bold {
+    font-weight: bold;
+  }
+
+  &--primary {
+    color: var(--primary-color)
+  }
+
+  &--secondary {
+    color: var(--secondary-color);
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--justify {
+    text-align: justify;
+  }
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color .3s ease;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+
+  &--primary {
+    background-color: $primary-color;
+    color: $white;
+
+    &:hover {
+      background-color: darken($primary-color, 12.5);
+    }
+  }
+
+  &--secondary {
+    background-color: $secondary-color;
+    color: $white;
+
+    &:hover {
+      background-color: darken($secondary-color, 12.5);
+    }
+  }
+
+  &--small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
