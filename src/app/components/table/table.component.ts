@@ -8,6 +8,7 @@ import {Component, Input, OnChanges} from '@angular/core';
 export class TableComponent implements OnChanges {
   @Input("data") data: Data[] = [];
   @Input("route") route: string = "";
+  @Input("options") options: Options = {}
   keys: string[] = [];
 
   constructor() { }
@@ -16,7 +17,13 @@ export class TableComponent implements OnChanges {
     if (this.data.length === 0) return;
 
     this.keys = Object.keys(this.data[0])
-  }
+
+    for (const index in this.options) {
+      if (this.options[index].hidden) {
+        this.keys.splice(parseInt(index), 1)
+      }
+    }
+   }
 
   formatKey (key: string): string {
     key = key.charAt(0).toUpperCase() + key.slice(1)
@@ -45,4 +52,12 @@ export class TableComponent implements OnChanges {
 
 type Data = {
   [key: string]: any
+}
+
+interface Option {
+  hidden: boolean
+}
+
+type Options = {
+  [index: number]: Option
 }

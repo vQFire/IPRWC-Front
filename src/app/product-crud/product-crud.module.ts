@@ -7,13 +7,15 @@ import {ComponentsModule} from "../components/components.module";
 import { ProductComponent } from './product/product.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CreateProductComponent } from './create-product/create-product.component';
+import { ProductShopComponent } from './product-shop/product-shop.component';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    ProductShopComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "../security/authentication.service";
+import {CartService} from "../cart/cart.service";
 
 @Component({
   selector: 'app-navigation',
@@ -7,7 +8,8 @@ import {AuthenticationService} from "../security/authentication.service";
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  constructor(public authenticationService: AuthenticationService) { }
+  constructor(public authenticationService: AuthenticationService,
+              public cartService: CartService) { }
 
   ngOnInit(): void {
 

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {tap} from "rxjs";
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Role } from "./role";
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {Role} from "./role";
 import decode from "jwt-decode";
 import {Jwt} from "./jwt";
 
@@ -28,7 +28,9 @@ export class AuthenticationService {
     body.set("password", password)
 
     return this.http.post<LoginResponse>(this.apiURL + "/login", body, options)
-      .pipe(tap((result: LoginResponse) => this.setSession(result)))
+      .pipe(tap((result: LoginResponse) => {
+        this.setSession(result)
+      }))
   }
 
   private setSession (loginResult: LoginResponse) {
@@ -55,6 +57,10 @@ export class AuthenticationService {
     const payload = <Jwt> decode(token)
 
     return payload.roles.includes(role)
+  }
+
+  isModerator (): boolean {
+    return this.isGranted(Role.ROLE_MODERATOR);
   }
 }
 

@@ -7,6 +7,8 @@ import {SecurityModule} from "./security/security.module";
 import {ProductCrudModule} from "./product-crud/product-crud.module";
 import { NavigationComponent } from './navigation/navigation.component';
 import {RouterModule} from "@angular/router";
+import {CartModule} from "./cart/cart.module";
+import {PurchaseModule} from "./purchase/purchase.module";
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import {RouterModule} from "@angular/router";
   imports: [
     BrowserModule,
     ProductCrudModule,
+    CartModule,
+    PurchaseModule,
     SecurityModule,
     AppRoutingModule,
     RouterModule,

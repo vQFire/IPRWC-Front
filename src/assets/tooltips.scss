@@ -44,6 +44,10 @@ $secondary-color: $blue;
     color: var(--secondary-color);
   }
 
+  &--dark {
+    color: #0E0E0E;
+  }
+
   &--center {
     text-align: center;
   }
@@ -85,5 +89,34 @@ $secondary-color: $blue;
     padding: 0.25rem 0.5rem;
     font-size: 0.9rem;
   }
+}
+
+@mixin generate($prefix, $property) {
+  // List of sizes to generate for each
+  $sizes: [0, .25, .5, 1, 1.5, 3];
+  // Spacing to multiply the sizes by
+  $spacing: 1rem;
+
+  // Loop through all of the sizes(we use @for rather than @each, as we want access to the index)
+  @for $i from 1 through length($sizes) {
+    // Get the size for the current index
+    $size: nth($sizes, $i);
+
+    // Create the rule
+    .#{$prefix}-#{$i - 1} {
+      #{$property}: $spacing * $size;
+    }
+  }
+}
+
+$rules: [
+  [ml, margin-left],
+  [mt, margin-top],
+  [mb, margin-bottom],
+  [mr, margin-right],
+];
+
+@each $item in $rules {
+  @include generate(nth($item, 1), nth($item, 2));
 }
 

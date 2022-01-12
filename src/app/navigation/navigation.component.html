@@ -1,10 +1,11 @@
 <nav class="nav">
   <ul class="nav-list text text--bold">
     <li class="nav-item">
-      <a [routerLink]="['/product']" routerLinkActive="active">Product</a>
+      <a [routerLink]="['/product']" *ngIf="!authenticationService.isModerator" routerLinkActive="active">Product</a>
+      <a [routerLink]="['/admin/product']" *ngIf="authenticationService.isModerator" routerLinkActive="active">Product</a>
     </li>
     <li class="nav-item">
-      <a [routerLink]="['/test']" routerLinkActive="active">Test</a>
+      <a [routerLink]="['/cart']" routerLinkActive="active">Cart ({{ this.cartService.getTotalItems() }})</a>
     </li>
     <li class="nav-item">
       <button class="button button--secondary" (click)="authenticationService.logout()" *ngIf="authenticationService.isLoggedIn()">Logout</button>

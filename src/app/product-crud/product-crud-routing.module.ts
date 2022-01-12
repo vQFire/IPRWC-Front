@@ -5,10 +5,11 @@ import {ProductComponent} from "./product/product.component";
 import {AuthenticationGuard} from "../security/authentication.guard";
 import {Role} from "../security/role";
 import {CreateProductComponent} from "./create-product/create-product.component";
+import {ProductShopComponent} from "./product-shop/product-shop.component";
 
 const routes: Routes = [
   {
-    path: "product/create",
+    path: "admin/product/create",
     component: CreateProductComponent,
     canActivate: [AuthenticationGuard],
     data: {
@@ -23,7 +24,18 @@ const routes: Routes = [
       expectedRole: Role.ROLE_MODERATOR
     }
   },
-  {path: "product", component: ProductsComponent},
+  {
+    path: "admin/product",
+    component: ProductsComponent,
+    canActivate: [AuthenticationGuard],
+    data: {
+      expectedRole: Role.ROLE_MODERATOR
+    }
+  },
+  {
+    path: "product",
+    component: ProductShopComponent,
+  },
 ];
 
 @NgModule({

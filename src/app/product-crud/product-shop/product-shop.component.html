@@ -1,0 +1,11 @@
+
+<ul class="product-list">
+  <li class="product" *ngFor="let product of products" (click)="addToCart(product)">
+    <img [src]="'https://picsum.photos/seed/' + product.name + '/250/125'" [alt]="product.name">
+
+    <div class="product-content">
+      <h4 class="text text--primary text--bold">{{ product.name }}</h4>
+      <p class="text text--dark">{{ product.shortDescription }}</p>
+    </div>
+  </li>
+</ul>
