@@ -1,0 +1,12 @@
+<form [formGroup]="form" (ngSubmit)="register()" class="login">
+  <div class="login-card">
+    <h1 class="login-title text">Register</h1>
+
+    <input-label label="Username" type="text" [control]="$any(form.get('username'))"></input-label>
+    <input-label label="Name" type="text" [control]="$any(form.get('name'))"></input-label>
+    <input-label label="Email" type="email" [control]="$any(form.get('email'))"></input-label>
+    <input-label label="Password" type="password" [control]="$any(form.get('password'))"></input-label>
+
+    <button class="button button--secondary" type="submit">Register</button>
+  </div>
+</form>

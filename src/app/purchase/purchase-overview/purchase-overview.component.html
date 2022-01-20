@@ -1,0 +1,8 @@
+
+<h2 class="text text--primary">Purchases</h2>
+<ng-template [ngIf]="purchases.length > 0" [ngIfElse]="NoPurchases">
+  <app-table [data]="purchases" [options]="tableOptions" route="{id}"></app-table>
+</ng-template>
+<ng-template #NoPurchases>
+  You haven't made a purchase yet
+</ng-template>

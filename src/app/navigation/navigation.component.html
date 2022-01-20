@@ -1,15 +1,18 @@
 <nav class="nav">
   <ul class="nav-list text text--bold">
     <li class="nav-item">
-      <a [routerLink]="['/product']" *ngIf="!authenticationService.isModerator" routerLinkActive="active">Product</a>
-      <a [routerLink]="['/admin/product']" *ngIf="authenticationService.isModerator" routerLinkActive="active">Product</a>
+      <a [routerLink]="['/product']" *ngIf="!isModerator" routerLinkActive="active">Products</a>
+      <a [routerLink]="['/admin/product']" *ngIf="isModerator" routerLinkActive="active">Product</a>
+    </li>
+    <li class="nav-item" *ngIf="isLoggedIn">
+      <a [routerLink]="['/purchase']" routerLinkActive="active">Purchases</a>
     </li>
     <li class="nav-item">
-      <a [routerLink]="['/cart']" routerLinkActive="active">Cart ({{ this.cartService.getTotalItems() }})</a>
+      <a [routerLink]="['/cart']" routerLinkActive="active">Cart ({{ this.cartSize }})</a>
     </li>
     <li class="nav-item">
-      <button class="button button--secondary" (click)="authenticationService.logout()" *ngIf="authenticationService.isLoggedIn()">Logout</button>
-      <a class="button button--secondary" [routerLink]="['login']" *ngIf="!authenticationService.isLoggedIn()">Login</a>
+      <button class="button button--secondary" (click)="authenticationService.logout()" *ngIf="isLoggedIn">Logout</button>
+      <a class="button button--secondary" [routerLink]="['login']" *ngIf="!isLoggedIn">Login</a>
     </li>
   </ul>
 </nav>

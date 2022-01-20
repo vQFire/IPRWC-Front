@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Purchase} from "./purchase";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,14 @@ export class PurchaseService {
   }
 
   makePurchase (products: object[]) {
-    this.http.post<any>(this.apiURL + "/create", {products}).subscribe(result => {
-      console.log(result)
-    })
+    return this.http.post<Purchase>(this.apiURL + "/create", {products})
+  }
+
+  getAllPurchases () {
+    return this.http.get<Purchase[]>(this.apiURL)
+  }
+
+  getPurchase (id: number) {
+    return this.http.get<Purchase>(this.apiURL + "/" + id)
   }
 }

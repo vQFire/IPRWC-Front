@@ -1,17 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {tap} from "rxjs";
+import {BehaviorSubject, tap} from "rxjs";
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Role} from "./role";
 import decode from "jwt-decode";
 import {Jwt} from "./jwt";
+import {User} from "./user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private apiURL: String;
+  public userIsLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isLoggedIn())
 
   constructor(private http: HttpClient,
               private jwtHelperService: JwtHelperService) {
@@ -30,7 +32,22 @@ export class AuthenticationService {
     return this.http.post<LoginResponse>(this.apiURL + "/login", body, options)
       .pipe(tap((result: LoginResponse) => {
         this.setSession(result)
+        this.userIsLoggedIn.next(true)
       }))
+  }
+
+  register (user: User) {
+    const options = {
+      headers: new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
+    }
+
+    const body = new URLSearchParams();
+    body.set("username", user.username)
+    body.set("password", user.password)
+    body.set("name", user.name)
+    body.set("email", user.email)
+
+    return this.http.post<User>(this.apiURL + "/user/register", body, options)
   }
 
   private setSession (loginResult: LoginResponse) {
@@ -41,6 +58,8 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem("access_token")
     localStorage.removeItem("refresh_token")
+
+    this.userIsLoggedIn.next(false)
   }
 
   isLoggedIn (): boolean {

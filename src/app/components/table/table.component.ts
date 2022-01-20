@@ -1,4 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-table',
@@ -11,21 +12,43 @@ export class TableComponent implements OnChanges {
   @Input("options") options: Options = {}
   keys: string[] = [];
 
-  constructor() { }
-
   ngOnChanges(): void {
     if (this.data.length === 0) return;
 
     this.keys = Object.keys(this.data[0])
 
-    for (const index in this.options) {
-      if (this.options[index].hidden) {
-        this.keys.splice(parseInt(index), 1)
+    this.checkTableOptions()
+  }
+
+  checkTableOptions(): void {
+    let hiddenOffset = 0
+
+    for (const stringIndex in this.options) {
+      const index = parseInt(stringIndex)
+      const option = this.options[index]
+
+      if (option.hidden) {
+        this.hideColumn(index - hiddenOffset)
+        hiddenOffset += 1
+      }
+
+      if (option.key) {
+        this.transformObjectToKeyValue(index - hiddenOffset, option.key)
       }
     }
-   }
+  }
 
-  formatKey (key: string): string {
+  hideColumn(index: number) {
+    this.keys.splice(index, 1)
+  }
+
+  transformObjectToKeyValue (index: number, key: string) {
+    for (const [dataIndex, data] of this.data.entries()) {
+      this.data[dataIndex][this.keys[index]] = data[this.keys[index]][key]
+    }
+  }
+
+  formatKey(key: string): string {
     key = key.charAt(0).toUpperCase() + key.slice(1)
 
     const capitalWords = key.match(/[A-Z][a-z]+/g)
@@ -33,7 +56,7 @@ export class TableComponent implements OnChanges {
     return capitalWords ? capitalWords.join(" ") : key
   }
 
-  formatLink (data: Data) {
+  formatLink(data: Data) {
     const keys = this.route.match(/(?<={)(.*?)(?=})/g)
 
     if (!keys) {
@@ -55,7 +78,8 @@ type Data = {
 }
 
 interface Option {
-  hidden: boolean
+  hidden?: boolean
+  key?: string
 }
 
 type Options = {

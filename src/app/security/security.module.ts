@@ -8,11 +8,13 @@ import {ComponentsModule} from "../components/components.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./authentication.interceptor";
 import {JwtModule} from "@auth0/angular-jwt";
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

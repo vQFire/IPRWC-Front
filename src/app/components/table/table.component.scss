@@ -7,6 +7,9 @@
   min-width: 400px;
   width: 100%;
   box-shadow: 0 0 1.5rem rgba(0,0,0,0.15);
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+  overflow: hidden;
 
   &-head tr {
     background-color: var(--primary-color);

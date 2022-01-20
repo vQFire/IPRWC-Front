@@ -17,7 +17,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "product/:name",
+    path: "admin/product/:name",
     component: ProductComponent,
     canActivate: [AuthenticationGuard],
     data: {
