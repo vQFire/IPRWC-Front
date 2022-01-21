@@ -12,6 +12,10 @@
     <button class="button button--secondary" (click)="deleteProduct()">Delete</button>
   </form>
   <div *ngIf="!isModerator">
-    <p>{{product.price}}</p>
+    <p class="text text--secondary">€{{product.price}}</p><br>
+    <p class="text text--secondary">{{product.longDescription}}</p>
+
+    <button class="button button--primary" (click)="cartService.addToCart(product)">Put in cart!</button>
+    <button class="button button--secondary ml-3" (click)="cartService.removeItem(product)">Remove from cart!</button>
   </div>
 </main>

@@ -1,10 +1,12 @@
 
+<app-filter></app-filter>
+
 <ul class="product-list">
-  <li [class]="'product ' + (product.sale === true && 'product--sale')" *ngFor="let product of products" (click)="addToCart(product)">
+  <li [class]="'product ' + (product.sale === true && 'product--sale')" *ngFor="let product of products" [routerLink]="[product.name]">
     <img [src]="'https://picsum.photos/seed/' + product.name + '/250/125'" [alt]="product.name">
 
     <div class="product-content">
-      <h4 class="text text--primary text--bold">{{ product.name }}</h4>
+      <h4 class="text text--primary text--bold">{{ product.name }} (€{{product.price}})</h4>
       <p class="text text--dark" *ngIf="!product.sale">{{ product.shortDescription }}</p>
       <p class="text text--dark" *ngIf="product.sale">{{ product.longDescription }}</p>
     </div>

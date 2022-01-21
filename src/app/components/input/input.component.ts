@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
 
 @Component({
@@ -12,6 +12,9 @@ export class InputComponent implements AfterViewInit {
   @Input("label") label = ""
   @Input("class") class = ""
   @Input("control") control: FormControl = new FormControl();
+  @Output()
+  inputChanged: EventEmitter<Event> = new EventEmitter<Event>();
+
   @ViewChild("input") input: any;
   focussed = false;
   id: string;
@@ -56,8 +59,6 @@ export class InputComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.type)
-
     if (this.input && this.input.nativeElement.value.length != 0) {
       this.updateLabel()
     }
@@ -76,5 +77,13 @@ export class InputComponent implements AfterViewInit {
 
     this.value = !this.value
     this.control.setValue(this.value)
+  }
+
+  inputUpdated (event: Event): void {
+    if (this.type === "checkbox") {
+      this.updateCheck(event)
+    }
+
+    this.inputChanged.emit(event)
   }
 }

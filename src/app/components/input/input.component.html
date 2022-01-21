@@ -2,16 +2,16 @@
   <div [ngSwitch]="type">
     <div *ngSwitchCase="'textarea'">
       <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
-      <textarea #input [id]="id" [formControl]="control" [className]="class + ' input text'" (focus)="updateLabel()" (blur)="updateLabel()">
+      <textarea #input [id]="id" [formControl]="control" [className]="class + ' input text'" (change)="inputUpdated($event)" (focus)="updateLabel()" (blur)="updateLabel()">
       </textarea>
     </div>
     <div *ngSwitchCase="'checkbox'">
       <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
-      <input #input [id]="id" [value]="control.value" [type]="type" [className]="class + ' input text'" (change)="updateCheck($event)" (focus)="updateLabel()" (blur)="updateLabel()">
+      <input #input [id]="id" [value]="control.value" [type]="type" [className]="class + ' input text'" (change)="inputUpdated($event)" (focus)="updateLabel()" (blur)="updateLabel()">
     </div>
     <div *ngSwitchDefault>
       <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
-      <input #input [id]="id" [formControl]="control" [type]="type" [className]="class + ' input text'" (focus)="updateLabel()" (blur)="updateLabel()">
+      <input #input [id]="id" [formControl]="control" [type]="type" [className]="class + ' input text'" (change)="inputUpdated($event)"  (focus)="updateLabel()" (blur)="updateLabel()">
     </div>
   </div>
 

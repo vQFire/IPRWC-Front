@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../../security/authentication.service";
 import {Role} from "../../security/role";
 import {FormControl, FormGroup} from "@angular/forms";
+import {CartService} from "../../cart/cart.service";
 
 @Component({
   selector: 'app-product',
@@ -19,6 +20,7 @@ export class ProductComponent implements OnInit {
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
+              public cartService: CartService,
               private router: Router) {
     this.isModerator = authenticationService.isGranted(Role.ROLE_MODERATOR)
   }
