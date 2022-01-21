@@ -36,6 +36,7 @@ export class ProductComponent implements OnInit {
               price: new FormControl(product.price),
               shortDescription: new FormControl(product.shortDescription),
               longDescription: new FormControl(product.longDescription),
+              sale: new FormControl(product.sale)
             })
           }
         })
@@ -45,11 +46,13 @@ export class ProductComponent implements OnInit {
 
   submitForm (): void {
     if (this.isModerator && this.product && this.form && this.form.valid) {
+      console.log(this.form.value)
+
       const productForm = <Product> this.form.value
       productForm.price = parseFloat(this.form.value.price)
 
       this.productService.updateProduct(productForm).subscribe(() => {
-        this.router.navigate(['product'])
+        this.router.navigate(['admin', 'product'])
       })
     }
   }
@@ -60,7 +63,7 @@ export class ProductComponent implements OnInit {
 
       if (confirmDelete) {
         this.productService.deleteProduct(this.product.name).subscribe(() => {
-          this.router.navigate(['product'], {
+          this.router.navigate(['admin', 'product'], {
             replaceUrl: true
           })
         })

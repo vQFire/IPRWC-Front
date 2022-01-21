@@ -5,4 +5,5 @@ export interface Product {
   price: number
   shortDescription: string
   longDescription: string
+  sale: boolean
 }

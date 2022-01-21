@@ -11,16 +11,18 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     const access_token = localStorage.getItem("access_token")
 
     if (!request.url.endsWith("/login")
-      && !request.url.endsWith("/register")
+      || !request.url.endsWith("/register")
       && access_token) {
       request = request.clone({
         headers: request.headers.set("Authorization", "Bearer " + access_token)
-          .set("Access-Control-Allow-Origin", "*/*")
+          .set("Access-Control-Allow-Origin", "*")
       });
     }
 
     request = request.clone({
       headers: request.headers.set("Accept", "*/*")
+        .set("Access-Control-Allow-Origin", "*")
+        .set("Allow-Origin", "*")
     })
 
     return next.handle(request);

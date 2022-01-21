@@ -4,7 +4,7 @@
 <ng-template [ngIf]="cart.length > 0" [ngIfElse]="EmptyCart">
   <app-table [data]="this.cart" [options]="tableOptions"></app-table>
 
-  <button (click)="purchase()" class="button button--primary">Purchase</button>
+  <button (click)="purchase()" class="button button--primary mt-3">Purchase</button>
 </ng-template>
 
 <ng-template #EmptyCart>

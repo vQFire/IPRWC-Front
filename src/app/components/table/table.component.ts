@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {of} from "rxjs";
+import {Data, Options} from "./tableOptions";
 
 @Component({
   selector: 'app-table',
@@ -11,6 +11,8 @@ export class TableComponent implements OnChanges {
   @Input("route") route: string = "";
   @Input("options") options: Options = {}
   keys: string[] = [];
+  original_keys: string[] = [];
+  totals: number[] = []
 
   ngOnChanges(): void {
     if (this.data.length === 0) return;
@@ -21,30 +23,54 @@ export class TableComponent implements OnChanges {
   }
 
   checkTableOptions(): void {
-    let hiddenOffset = 0
+    if (this.options.extraColumns) {
+      this.createExtraColumn()
+    }
+
+    if (this.options.product) {
+      this.calculateProductSum()
+    }
+
+    if (this.options.sumTotals) {
+      for (const data of this.data) {
+        for (const [index, sumTotal] of this.options.sumTotals.entries()) {
+          this.totals[index] === undefined ? this.totals[index] = 0 : null
+
+          this.totals[index] += data[this.keys[sumTotal]]
+
+          this.totals[index].toFixed(2)
+        }
+      }
+    }
+
+
+    this.original_keys = this.keys.slice()
 
     for (const stringIndex in this.options) {
+      if (isNaN(Number(stringIndex))) continue
+
       const index = parseInt(stringIndex)
       const option = this.options[index]
 
       if (option.hidden) {
-        this.hideColumn(index - hiddenOffset)
-        hiddenOffset += 1
+        this.hideColumn(index)
       }
 
       if (option.key) {
-        this.transformObjectToKeyValue(index - hiddenOffset, option.key)
+        this.transformObjectToKeyValue(index, option.key)
       }
     }
   }
 
   hideColumn(index: number) {
-    this.keys.splice(index, 1)
+    const diff = this.original_keys.length - this.keys.length
+
+    this.keys.splice(index - diff, 1)
   }
 
   transformObjectToKeyValue (index: number, key: string) {
     for (const [dataIndex, data] of this.data.entries()) {
-      this.data[dataIndex][this.keys[index]] = data[this.keys[index]][key]
+      this.data[dataIndex][this.original_keys[index]] = data[this.original_keys[index]][key]
     }
   }
 
@@ -71,17 +97,34 @@ export class TableComponent implements OnChanges {
     const key = keys[0]
     return this.route.replace(/{[\w]+}/g, data[key])
   }
-}
 
-type Data = {
-  [key: string]: any
-}
+  calculateProductSum () {
+    if (!this.options.product) return;
 
-interface Option {
-  hidden?: boolean
-  key?: string
-}
+    const priceIndex = this.options.product.price
+    const amountIndex = this.options.product.amount
 
-type Options = {
-  [index: number]: Option
+    this.keys.push("total")
+
+    for (const [dataIndex, data] of this.data.entries()) {
+      const price = data[this.keys[priceIndex]]
+      const amount = data[this.keys[amountIndex]]
+
+      this.data[dataIndex]["total"] = price * amount
+    }
+  }
+
+  createExtraColumn () {
+    if (!this.options.extraColumns?.length) return;
+
+    for (const extraColumn of this.options.extraColumns) {
+      for (const [dataIndex, data] of this.data.entries()) {
+        const newValue = data[this.keys[extraColumn.objectIndex]][extraColumn.objectKey]
+
+        this.data[dataIndex][extraColumn.objectKey] = newValue
+      }
+
+      this.keys.splice(extraColumn.wantedIndex, 0, extraColumn.objectKey)
+    }
+  }
 }

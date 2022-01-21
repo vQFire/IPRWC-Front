@@ -55,6 +55,10 @@ $secondary-color: $blue;
   &--justify {
     text-align: justify;
   }
+
+  &--right {
+    text-align: right;
+  }
 }
 
 .button {

@@ -44,4 +44,12 @@
       border-bottom-width: 2px;
     }
   }
+
+  &-sum {
+    background-color: var(--primary-color) !important;
+
+    & * {
+      color: var(--white) !important;
+    }
+  }
 }

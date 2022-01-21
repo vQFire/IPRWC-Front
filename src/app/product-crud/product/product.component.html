@@ -6,6 +6,7 @@
     <input-label label="Price" type="string" [control]="$any(form.get('price'))"></input-label>
     <input-label label="Short Description" type="textarea" [control]="$any(form.get('shortDescription'))"></input-label>
     <input-label label="Long Description" type="textarea" [control]="$any(form.get('longDescription'))"></input-label>
+    <input-label label="On Sale?" type="checkbox" [control]="$any(form.get('sale'))"></input-label>
 
     <button class="button button--primary" (click)="submitForm()">Save</button>
     <button class="button button--secondary" (click)="deleteProduct()">Delete</button>

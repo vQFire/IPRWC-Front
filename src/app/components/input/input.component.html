@@ -1,18 +1,20 @@
-<div class="input-holder" *ngIf="type !== 'textarea'">
-  <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
-  <input #input [id]="id" [formControl]="control" [type]="type" [className]="class + ' input text'" (focus)="updateLabel()" (blur)="updateLabel()">
-  <div *ngIf="control.errors && (control.dirty || control.touched)">
-    <p *ngIf="control.errors?.['required']" class="text input-error">Dit veld is verplicht</p>
-    <p *ngIf="control.errors?.['minlength']" class="text input-error">Dit veld moet minimaal {{ control.errors?.['minlength'].requiredLength }} karakters lang zijn</p>
-    <p *ngIf="control.errors?.['maxlength']" class="text input-error">Dit veld is verplicht</p>
-    <p *ngIf="control.errors?.['email']" class="text input-error">Dit is geen geldige email</p>
+<div class="input-holder">
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase="'textarea'">
+      <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
+      <textarea #input [id]="id" [formControl]="control" [className]="class + ' input text'" (focus)="updateLabel()" (blur)="updateLabel()">
+      </textarea>
+    </div>
+    <div *ngSwitchCase="'checkbox'">
+      <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
+      <input #input [id]="id" [value]="control.value" [type]="type" [className]="class + ' input text'" (change)="updateCheck($event)" (focus)="updateLabel()" (blur)="updateLabel()">
+    </div>
+    <div *ngSwitchDefault>
+      <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
+      <input #input [id]="id" [formControl]="control" [type]="type" [className]="class + ' input text'" (focus)="updateLabel()" (blur)="updateLabel()">
+    </div>
   </div>
-</div>
-<div class="input-holder" *ngIf="type === 'textarea'">
-  <label [for]="id" class="text text--secondary input-label">{{ label }}</label>
-  <textarea #input [id]="id" [formControl]="control" [className]="class + ' input text'" (focus)="updateLabel()" (blur)="updateLabel()">
 
-  </textarea>
   <div *ngIf="control.errors && (control.dirty || control.touched)">
     <p *ngIf="control.errors?.['required']" class="text input-error">Dit veld is verplicht</p>
     <p *ngIf="control.errors?.['minlength']" class="text input-error">Dit veld moet minimaal {{ control.errors?.['minlength'].requiredLength }} karakters lang zijn</p>

@@ -4,6 +4,7 @@ import {Product} from "../../product-crud/product";
 import {PurchaseService} from "../../purchase/purchase.service";
 import {AuthenticationService} from "../../security/authentication.service";
 import {Router} from "@angular/router";
+import {Options} from "../../components/table/tableOptions";
 
 @Component({
   selector: 'app-cart-overview',
@@ -12,13 +13,24 @@ import {Router} from "@angular/router";
 })
 export class CartOverviewComponent implements OnInit {
   cart: ProductCart[] = []
-  tableOptions = {
+  tableOptions: Options = {
     0: {
+      hidden: true
+    },
+    3: {
+      hidden: true
+    },
+    4: {
       hidden: true
     },
     5: {
       hidden: true
-    }
+    },
+    product: {
+      price: 2,
+      amount: 6
+    },
+    sumTotals: [6, 7]
   }
 
   constructor(private cartService: CartService,

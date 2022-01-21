@@ -14,12 +14,10 @@
     object-fit: cover;
   }
 
-  &--big {
-    grid-column: span 2;
-  }
-
   &--sale {
     order: -1;
+    grid-row: span 2;
+    grid-column: span 1;
   }
 
   &-list {

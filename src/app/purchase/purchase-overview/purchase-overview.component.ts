@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Purchase} from "../purchase";
 import {PurchaseService} from "../purchase.service";
+import {Options} from "../../components/table/tableOptions";
 
 @Component({
   selector: 'app-purchase-overview',
@@ -9,7 +10,7 @@ import {PurchaseService} from "../purchase.service";
 })
 export class PurchaseOverviewComponent implements OnInit {
   purchases: Purchase[] = []
-  tableOptions = {
+  tableOptions: Options = {
     0: {
       hidden: true
     },

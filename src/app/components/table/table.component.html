@@ -20,5 +20,9 @@
 
       </td>
     </tr>
+    <tr *ngIf="totals.length > 0 && this.options.sumTotals" class="table-sum">
+      <td [attr.colspan]="keys.length - totals.length" class="text--right text--bold">Total:</td>
+      <td *ngFor="let total of totals" class="text--bold">{{total}}</td>
+    </tr>
   </tbody>
 </table>
