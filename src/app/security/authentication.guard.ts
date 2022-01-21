@@ -20,7 +20,10 @@ export class AuthenticationGuard implements CanActivate {
     let expectedRole = <Role> route.data["expectedRole"]
     const token = localStorage.getItem("access_token")
 
-    if (!token) return false
+    if (!token) {
+      this.authenticationService.logout()
+      return false
+    }
     if (!expectedRole) expectedRole = Role.ROLE_USER
 
     const payload = <Jwt> decode(token)
@@ -28,6 +31,7 @@ export class AuthenticationGuard implements CanActivate {
     // @ToDO Add 403 redirect page if role is not met
     if (!this.authenticationService.isLoggedIn() ||
         !payload.roles.includes(expectedRole)) {
+      this.authenticationService.logout()
       this.router.navigate(['login'])
       return false
     }
