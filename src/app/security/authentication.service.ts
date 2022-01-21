@@ -54,6 +54,10 @@ export class AuthenticationService {
     return this.http.get<User>(this.apiURL + "/user/profile")
   }
 
+  updateUser (user: User) {
+    return this.http.post<User>(this.apiURL + "/user/profile", user)
+  }
+
   private setSession (loginResult: LoginResponse) {
     localStorage.setItem("access_token", loginResult.access_token)
     localStorage.setItem("refresh_token", loginResult.refresh_token)

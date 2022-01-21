@@ -1,1 +1,11 @@
-<p>profile works!</p>
+<div class="text">
+  <h1 class="text--primary">{{user.name}}</h1>
+
+  <form>
+    <input-label [control]="$any(form.get('name'))" label="Name"></input-label>
+    <input-label [control]="$any(form.get('username'))" label="Username"></input-label>
+    <input-label [control]="$any(form.get('email'))" label="Email"></input-label>
+
+    <button (click)="submit()" class="button button--primary mt-3">Save</button>
+  </form>
+</div>
