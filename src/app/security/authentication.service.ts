@@ -54,8 +54,20 @@ export class AuthenticationService {
     return this.http.get<User>(this.apiURL + "/user/profile")
   }
 
-  updateUser (user: User) {
-    return this.http.post<User>(this.apiURL + "/user/profile", user)
+  updateUser (user: User, username: string,  isOwnProfile = false) {
+    if (!isOwnProfile) {
+      return this.http.put<User>(this.apiURL + "/user/profile/" + username, user)
+    }
+
+    return this.http.put<User>(this.apiURL + "/user/profile", user)
+  }
+
+  getUsers () {
+    return this.http.get<User[]>(this.apiURL + "/user")
+  }
+
+  getUser (name: string) {
+    return this.http.get<User>(this.apiURL + "/user/" + name)
   }
 
   private setSession (loginResult: LoginResponse) {

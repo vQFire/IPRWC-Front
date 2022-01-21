@@ -1,0 +1,5 @@
+<div class="text">
+  <h1 class="text--primary">User overview</h1>
+
+  <app-table *ngIf="users" [data]="users" [options]="tableOptions" route="/profile/{username}"></app-table>
+</div>

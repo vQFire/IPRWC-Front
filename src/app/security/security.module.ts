@@ -10,13 +10,15 @@ import {AuthenticationInterceptor} from "./authentication.interceptor";
 import {JwtModule} from "@auth0/angular-jwt";
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserOverviewComponent } from './user-overview/user-overview.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserOverviewComponent
   ],
   imports: [
     CommonModule,
