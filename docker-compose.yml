@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mariadb:
+    container_name: IPRWC-Databace
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: TotallyHackable
+      MARIADB_DATABASE: IPRWC
+    ports:
+      - "6033:3306"
+  front:
+    container_name: IPRWC-Front
+    image: vqfire/iprwc-front
+    restart: always
+    ports:
+      - "4200:4200"
+  back:
+    container_name: IPRWC-Back
+    image: vqfire/iprwc-back
+    restart: always
+    ports:
+      - "8080:8080"
+
+
